@@ -6,11 +6,10 @@ class Player {
     this.wins = [];
   }
   saveWinsToStorage() {
-    var game = JSON.stringify(dataModel.game);
-    localStorage.setItem('game',game);
+
   }
 
   retrieveWinsFromStorage() {
-    return JSON.parse(localStorage.getItem('game'));
+
   }
 }
