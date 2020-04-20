@@ -13,6 +13,9 @@ section {
    width: 33%;
 }
 article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid black;
   width: 100%;
   height: 100%;
@@ -23,6 +26,7 @@ h2 {
 .game-board {
   border: none;
   display: grid;
+  justify-content: center;
   grid-template-columns: 33% 33% 33%;
   width: 50%;
   height: 30%;
@@ -32,19 +36,19 @@ h2 {
   align-items: left;
 }
 .right-side {
-  align-items: center;
+  align-items: left;
 }
 .center {
   align-items: center;
 }
 
-#mini-game-board{
+.mini-game-board{
   border: solid 1px black;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
   padding: 20px;
-  width: 100%;
+  width: 80%;
 
 }
 #single-mini-game{
@@ -59,4 +63,6 @@ h2 {
   height: 100%;
   width: 100%;
   align-content: center;
+  justify-content: center;
+
 }
