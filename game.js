@@ -1,43 +1,48 @@
 
 class Game {
   constructor() {
-    this.playerOne = new Player('one');
-    this.playerTwo = new Player('two');
-    this.board = [,,,,,,,,];
+    this.board = [,,,,,,,,,];
+    this.playerOne = new Player(1);
+    this.playerTwo = new Player(2);
     this.turnIs = 1;
-    this.winsOne = [[],[]];
-    this.winsTwo = [];
-    this.countOne = 0;
-    this.countTwo = 0;
   }
   checkScore() {
+    //check horiztonal wins
     for(var i = 0; i < 8; i+=3){
-      if(this.board[i] === 1 &&this.board[i+1] === 1 && this.board[i+2] === 1){
-        return 'Player one wins!'
-      }
-      else if (this.board[i] === 2 &&this.board[i+1] === 2 && this.board[i+2] === 2){
-        return 'Player two wins!'
+      if(this.board[i] === whoseTurn &&this.board[i+1] === whoseTurn && this.board[i+2] === whoseTurn){
+        return whoseTurn;
       }
     }
+    //check vertical wins
     for(var i = 0; i < 3; i+=1){
-      if(this.board[i] === 1 &&this.board[i+3] === 1 && this.board[i+6] === 1){
-        return 'Player one wins!'
+      if(this.board[i] === whoseTurn &&this.board[i+3] === whoseTurn && this.board[i+6] === whoseTurn){
+        return whoseTurn;
       }
-      else if (this.board[i] === 2 &&this.board[i+3] === 2 && this.board[i+6] === 2){
-        return 'Player two wins!'
-      }
+    }
+    //Check diagonal wins
+    if(this.board[2] === whoseTurn && this.board[4] === whoseTurn && this.board[6] === whoseTurn) {
+      return whoseTurn
+    }else if(this.board[0] === whoseTurn &&this.board[4] === whoseTurn && this.board[8] === whoseTurn){
+      return whoseTurn
+    }
+    if(!this.board.includes(undefined)){
+      return 'draw';
     }
   }
-
-    // if this game condition is met,
-    // return win = true;
-    //if boards = full
-    // return draw
   saveWin() {
-    //if playerOne wins
-    //push this.board to winsOne
+    if (winner === 1){
+      this.playerOne.wins.push(this.board)
+    } else if(winner ===2){
+      this.playerTwo.wins.push(this.board)
+    }
   }
   resetGame() {
-    // set board to empty
+    whoseTurn = 1;
+    this.board = [,,,,,,,,,];
+    winner = undefined;
+    for(var i = 0; i <= 8; i++){
+      var blankSpot = document.getElementById(i);
+      blankSpot.innerText = '';
+    }
   }
 }
