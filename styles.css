@@ -27,7 +27,8 @@ h2 {
   border: none;
   display: grid;
   justify-content: center;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   width: 50%;
   height: 30%;
   padding: 10%;
@@ -46,6 +47,7 @@ h2 {
   border: solid 1px black;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 20px;
   padding: 20px;
   width: 80%;
@@ -53,7 +55,8 @@ h2 {
 }
 #single-mini-game{
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   width: 100px;
   height: 100px;
 }
