@@ -7,18 +7,20 @@ var dataModel = {
   winner: null,
   }
 gameBoard.addEventListener('click',addToBoard)
+window.onLoad(onLoad);
 
 function addToBoard(event) {
 
-  if(!dataModel.game.board[event.target.id] && !dataModel.winner){
+  if(!dataModel.game.board[event.target.id] && !dataModel.winner) {
     dataModel.game.board[event.target.id] = dataModel.whoseTurn;
     dataModel.winner = dataModel.game.checkScore();
     updateDisplay();
   } else if (dataModel.winner === 1 || dataModel.winner === 2) {
     dataModel.game.saveWin();
+    saveWinsToStorage();
     displayMini();
     dataModel.game.resetGame();
-  } else if(dataModel.winner === 'draw'){
+  } else if(dataModel.winner === 'draw') {
     dataModel.game.resetGame();
   }
     updateHeader();
@@ -38,7 +40,7 @@ function updateHeader() {
 
 function displayMini(){
   var miniGameBoard = document.getElementById(`mini-game-board-${dataModel.winner}`)
-  if(dataModel.winner === 1){
+  if(dataModel.winner === 1) {
     var boards = dataModel.game.playerOne.wins
   } else if (dataModel.winner === 2) {
     var boards = dataModel.game.playerTwo.wins
@@ -64,3 +66,41 @@ function displayMini(){
     </article>
     </trial>`)
 }
+function saveWinsToStorage() {
+  var game = JSON.stringify(dataModel.game);
+  localStorage.setItem('game',game);
+}
+
+function retrieveWinsFromStorage() {
+  return JSON.parse(localStorage.getItem('game'));
+}
+
+function onLoad() {
+  dataModel.game = retrieveWinsFromStorage();
+  displayLocalStorage();
+}
+
+function displayLocalStorage() {
+  var miniGameBoard = document.getElementById(`mini-game-board-1`)
+  var boards = dataModel.game.playerOne.wins
+  miniGameBoard.insertAdjacentHTML('beforeend', ` <section id = "single-mini-game">
+    <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
+    </article>
+    <article class = "mini-spot">${boards[boards.length -1][1] || ' '}
+    </article>
+    <article class = "mini-spot">${boards[boards.length -1][2] || ' '}
+    </article>
+    <article class = "mini-spot">${boards[boards.length -1][3] || ' '}
+    </article>
+    <article class = "mini-spot">${boards[boards.length -1][4] || ' '}
+    </article>
+    <article class = "mini-spot">${boards[boards.length -1][5] || ' '}
+    </article>
+    <article class = "mini-spot">${boards[boards.length -1][6] || ' '}
+    </article>
+    <article class = "mini-spot">${boards[boards.length -1][7] || ' '}
+    </article>
+    <article class = "mini-spot">${boards[boards.length -1][8] || ' '}
+    </article>
+    </trial>`)
+  }
