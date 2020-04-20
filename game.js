@@ -2,8 +2,8 @@
 class Game {
   constructor() {
     this.board = [,,,,,,,,,];
-    this.playerOne = new Player('one');
-    this.playerTwo = new Player('two');
+    this.playerOne = new Player(1);
+    this.playerTwo = new Player(2);
     this.turnIs = 1;
   }
   checkScore() {
@@ -31,9 +31,9 @@ class Game {
   }
   saveWin() {
     if (winner === 1){
-      this.winOne.push(this.board)
-    } else{
-      this.winTwo.push(this.board)
+      this.playerOne.wins.push(this.board)
+    } else if(winner ===2){
+      this.playerTwo.wins.push(this.board)
     }
   }
   resetGame() {
