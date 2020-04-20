@@ -52,7 +52,7 @@ function displayMini(){
     var boards = dataModel.playerOne.wins
   } else if (dataModel.winner === 2) {
     var boards = dataModel.playerTwo.wins
-  }
+  }// 2
   miniGameBoard.insertAdjacentHTML('beforeend', ` <section id = "single-mini-game">
     <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
     </article>
@@ -72,19 +72,24 @@ function displayMini(){
     </article>
     <article class = "mini-spot">${boards[boards.length -1][8] || ' '}
     </article>
-    </trial>`)
+    </section>`)
 }
 
 function onLoad() {
   dataModel.playerOne.retrieveWinsFromStorage()
   dataModel.playerTwo.retrieveWinsFromStorage()
-  displayLocalStorage();
+  if(dataModel.playerOne.wins){
+    displayLocalStorage(dataModel.playerOne);
+  }
+  if(dataModel.playerTwo.wins){
+    displayLocalStorage(dataModel.playerTwo)
+  }
 }
 
-function displayLocalStorage() {
-  for(var i = 0; i < dataModel.playerOne.wins.length; i++){
-  var miniGameBoard = document.getElementById(`mini-game-board-1`);
-  var boards = dataModel.playerOne.wins;
+function displayLocalStorage(player) {
+  for(var i = 0; i < player.wins.length; i++){
+  var miniGameBoard = document.getElementById(`mini-game-board-${player.id}`);
+  var boards = player.wins;
   miniGameBoard.insertAdjacentHTML('beforeend', ` <section id = "single-mini-game">
     <article class = "mini-spot">${boards[i][0] || ' '}
     </article>
@@ -109,15 +114,16 @@ function displayLocalStorage() {
 }
 //
 //   function displayLocalStorage() {
-//     var miniGameBoard = document.getElementById(`mini-game-board-1`)
-//     var boards = lsDataModel.playerOne.wins;
-//     miniGameBoard.insertAdjacentHTML('afterbegin', `<section id = "single-mini-game">`)
-//     for(var i = 0; i <= 8; i++){
-//     miniGameBoard.insertAdjacentHTML('beforeend', `
-//       <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
-//       </article>
-//       `)
-//     }
+    var miniGameBoard = document.getElementById(`mini-game-board-1`)
+    var boards = lsDataModel.playerOne.wins;
+   miniGameBoard.insertAdjacentHTML('afterbegin', `<section id = "single-mini-game">`)
+   //
+    // for(var i = 0; i <= 8; i++){
+    // miniGameBoard.insertAdjacentHTML('beforeend', `
+    //   <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
+    //   </article>
+    //   `)
+    // }
 //     miniGameBoard.insertAdjacentHTML('beforeend', `</section>`)
 // }
 

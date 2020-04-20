@@ -5,6 +5,7 @@ class Game {
   }
   checkScore() {
     //check horiztonal wins
+    //is horizontal t/f sets a new value for [i + whatever]
     for(var i = 0; i < 8; i+=3){
       if(this.board[i] === dataModel.whoseTurn &&this.board[i+1] === dataModel.whoseTurn && this.board[i+2] === dataModel.whoseTurn){
         return dataModel.whoseTurn;
