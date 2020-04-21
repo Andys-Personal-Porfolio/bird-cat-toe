@@ -57,33 +57,25 @@ function displayMini(){
   } else if (dataModel.winner === 2) {
     var boards = dataModel.playerTwo.wins
   }
-  // var src = document.getElementById(event.target.id);
-  // var img = document.createElement("img");
-  // var birdImg = "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
-  // var catImg = "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
-  // img.src = dataModel.whoseTurn === 1 ? catImg: birdImg;
-  // src.appendChild(img);
 
-  miniGameBoard.insertAdjacentHTML('beforeend', ` <div id = "single-mini-game">
-    <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[boards.length -1][1] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[boards.length -1][2] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[boards.length -1][3] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[boards.length -1][4] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[boards.length -1][5] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[boards.length -1][6] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[boards.length -1][7] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[boards.length -1][8] || ' '}
-    </article>
-    </div>`)
+  var singleMiniGame = document.createElement("div");
+  singleMiniGame.setAttribute("id", "single-mini-game");
+  miniGameBoard.appendChild(singleMiniGame);
+  for(var i = 0; i < 9; i ++){
+    var img = whichPicture(boards[boards.length -1], i)
+    singleMiniGame.insertAdjacentHTML('beforeend', `
+      <article class = "mini-spot"> <img src = ${img}>
+      </article>`)
+  }
+}
+function whichPicture(j,i) {
+  if(j[i] === 2){
+    return "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
+  } else if (j[i] === 1){
+    return "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
+  } else {
+    return "https://www.halberesford.com/content/images/2018/07/null.png";
+  }
 }
 
 function onLoad() {
@@ -98,49 +90,17 @@ function onLoad() {
 }
 
 function displayLocalStorage(player) {
-  for(var i = 0; i < player.wins.length; i++){
   var miniGameBoard = document.getElementById(`mini-game-board-${player.id}`);
-  var boards = player.wins;
-  miniGameBoard.insertAdjacentHTML('beforeend', ` <div id = "single-mini-game">
-    <article class = "mini-spot">${boards[i][0] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[i][1] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[i][2] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[i][3] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[i][4] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[i][5] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[i][6] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[i][7] || ' '}
-    </article>
-    <article class = "mini-spot">${boards[i][8] || ' '}
-    </article>
-    </div>`)
+  for(var i = 0; i < player.wins.length; i++){
+    var boards = player.wins;
+    var singleMiniGame = document.createElement("div");
+    singleMiniGame.setAttribute("id", "single-mini-game");
+    miniGameBoard.appendChild(singleMiniGame);
+    for(var j = 0; j < 9; j ++){
+      var img = whichPicture(boards[i],j)
+      singleMiniGame.insertAdjacentHTML('beforeend', `
+        <article class = "mini-spot"><img src = ${img}>
+        </article>`)
+    }
   }
 }
-//
-//   function displayLocalStorage() {
-   //  var miniGameBoard = document.getElementById(`mini-game-board-1`)
-   //  var boards = lsDataModel.playerOne.wins;
-   // miniGameBoard.insertAdjacentHTML('afterbegin', `<section id = "single-mini-game">`)
-   //
-    // for(var i = 0; i <= 8; i++){
-    // miniGameBoard.insertAdjacentHTML('beforeend', `
-    //   <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
-    //   </article>
-    //   `)
-    // }
-//     miniGameBoard.insertAdjacentHTML('beforeend', `</section>`)
-// }
-
-  // function reinstantiate() {
-  //   // for(var i = 0; i < oldIdeasArray.length; i++) {
-  //   //   var currentGame = new Game({})
-  //   //   dataModel.game.push(currentIdea);
-  //   // }
-  // }
