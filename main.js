@@ -17,30 +17,27 @@ function addToBoard(event) {
     dataModel.game.board[event.target.id] = dataModel.whoseTurn;
     dataModel.winner = dataModel.game.checkWins();
     updateDisplay();
-  } else if (dataModel.winner === 1) {
-    dataModel.game.saveWin();
-    dataModel.playerOne.saveWinsToStorage();
-    displayMini();
-    dataModel.game.resetGame();
-    }else if (dataModel.winner === 2){
+    } else if (dataModel.winner === 1) {
+      dataModel.game.saveWin();
+      dataModel.playerOne.saveWinsToStorage();
+      displayMini();
+      dataModel.game.resetGame();
+    } else if (dataModel.winner === 2){
       dataModel.game.saveWin();
       dataModel.playerTwo.saveWinsToStorage();
       displayMini();
       dataModel.game.resetGame();
+    } else if(dataModel.winner === 'draw') {
+      dataModel.game.resetGame();
     }
-   else if(dataModel.winner === 'draw') {
-    dataModel.game.resetGame();
-  }
-    updateHeader();
+  updateHeader();
 
 }
 
 function updateDisplay() {
   var src = document.getElementById(event.target.id);
   var img = document.createElement("img");
-  var birdImg = "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
-  var catImg = "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
-  img.src = dataModel.whoseTurn === 1 ? catImg: birdImg;
+  img.src = whichPicture(dataModel.whoseTurn, 0)
   src.appendChild(img);
   dataModel.whoseTurn = dataModel.whoseTurn === 1 ? 2 : 1
 }
@@ -50,28 +47,11 @@ function updateHeader() {
     turnHeader.innerText = dataModel.winner ||`It is player ${dataModel.whoseTurn}'s turn`
 }
 
-function displayMini(){
-  var miniGameBoard = document.getElementById(`mini-game-board-${dataModel.winner}`)
-  if(dataModel.winner === 1) {
-    var boards = dataModel.playerOne.wins
-  } else if (dataModel.winner === 2) {
-    var boards = dataModel.playerTwo.wins
-  }
 
-  var singleMiniGame = document.createElement("div");
-  singleMiniGame.setAttribute("id", "single-mini-game");
-  miniGameBoard.appendChild(singleMiniGame);
-  for(var i = 0; i < 9; i ++){
-    var img = whichPicture(boards[boards.length -1], i)
-    singleMiniGame.insertAdjacentHTML('beforeend', `
-      <article class = "mini-spot"> <img src = ${img}>
-      </article>`)
-  }
-}
 function whichPicture(j,i) {
-  if(j[i] === 2){
+  if(j[i] === 2 || j === 2){
     return "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
-  } else if (j[i] === 1){
+  } else if (j[i] === 1 || j ===1){
     return "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
   } else {
     return "https://www.halberesford.com/content/images/2018/07/null.png";
@@ -93,14 +73,28 @@ function displayLocalStorage(player) {
   var miniGameBoard = document.getElementById(`mini-game-board-${player.id}`);
   for(var i = 0; i < player.wins.length; i++){
     var boards = player.wins;
-    var singleMiniGame = document.createElement("div");
-    singleMiniGame.setAttribute("id", "single-mini-game");
-    miniGameBoard.appendChild(singleMiniGame);
-    for(var j = 0; j < 9; j ++){
-      var img = whichPicture(boards[i],j)
-      singleMiniGame.insertAdjacentHTML('beforeend', `
-        <article class = "mini-spot"><img src = ${img}>
-        </article>`)
-    }
+    displayBoth(boards[i], miniGameBoard);
+  }
+}
+
+function displayMini(){
+  var miniGameBoard = document.getElementById(`mini-game-board-${dataModel.winner}`)
+  if(dataModel.winner === 1) {
+    var boards = dataModel.playerOne.wins
+  } else if (dataModel.winner === 2) {
+    var boards = dataModel.playerTwo.wins
+  }
+  displayBoth(boards[boards.length -1],miniGameBoard)
+}
+
+function displayBoth(spot,miniGameBoard) {
+  var singleMiniGame = document.createElement("div");
+  singleMiniGame.setAttribute("id", "single-mini-game");
+  miniGameBoard.appendChild(singleMiniGame);
+  for(var i = 0; i < 9; i ++){
+    var img = whichPicture(spot, i)
+    singleMiniGame.insertAdjacentHTML('beforeend', `
+      <article class = "mini-spot"> <img src = ${img}>
+      </article>`)
   }
 }
