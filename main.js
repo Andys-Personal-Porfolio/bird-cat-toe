@@ -57,19 +57,24 @@ function displayMini(){
   } else if (dataModel.winner === 2) {
     var boards = dataModel.playerTwo.wins
   }
-  // var src = document.getElementById(event.target.id);
-  // var img = document.createElement("img");
-  // var birdImg = "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
-  // var catImg = "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
-  // img.src = dataModel.whoseTurn === 1 ? catImg: birdImg;
-  // src.appendChild(img);
+
   var singleMiniGame = document.createElement("div");
   singleMiniGame.setAttribute("id", "single-mini-game");
   miniGameBoard.appendChild(singleMiniGame);
   for(var i = 0; i < 9; i ++){
+    var img = whichPicture(boards[boards.length -1], i)
     singleMiniGame.insertAdjacentHTML('beforeend', `
-      <article class = "mini-spot">${boards[boards.length -1][i] || ' '}
+      <article class = "mini-spot"> <img src = ${img}>
       </article>`)
+  }
+}
+function whichPicture(j,i) {
+  if(j[i] === 2){
+    return "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
+  } else if (j[i] === 1){
+    return "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
+  } else {
+    return "https://www.halberesford.com/content/images/2018/07/null.png";
   }
 }
 
@@ -92,8 +97,9 @@ function displayLocalStorage(player) {
     singleMiniGame.setAttribute("id", "single-mini-game");
     miniGameBoard.appendChild(singleMiniGame);
     for(var j = 0; j < 9; j ++){
+      var img = whichPicture(boards[i],j)
       singleMiniGame.insertAdjacentHTML('beforeend', `
-        <article class = "mini-spot">${boards[i][j] || ' '}
+        <article class = "mini-spot"><img src = ${img}>
         </article>`)
     }
   }
