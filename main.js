@@ -15,7 +15,7 @@ function addToBoard(event) {
 
   if(!dataModel.game.board[event.target.id] && !dataModel.winner) {
     dataModel.game.board[event.target.id] = dataModel.whoseTurn;
-    dataModel.winner = dataModel.game.checkScore();
+    dataModel.winner = dataModel.game.checkWins();
     updateDisplay();
   } else if (dataModel.winner === 1) {
     dataModel.game.saveWin();
@@ -52,7 +52,7 @@ function displayMini(){
     var boards = dataModel.playerOne.wins
   } else if (dataModel.winner === 2) {
     var boards = dataModel.playerTwo.wins
-  }// 2
+  }
   miniGameBoard.insertAdjacentHTML('beforeend', ` <section id = "single-mini-game">
     <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
     </article>
@@ -114,9 +114,9 @@ function displayLocalStorage(player) {
 }
 //
 //   function displayLocalStorage() {
-    var miniGameBoard = document.getElementById(`mini-game-board-1`)
-    var boards = lsDataModel.playerOne.wins;
-   miniGameBoard.insertAdjacentHTML('afterbegin', `<section id = "single-mini-game">`)
+   //  var miniGameBoard = document.getElementById(`mini-game-board-1`)
+   //  var boards = lsDataModel.playerOne.wins;
+   // miniGameBoard.insertAdjacentHTML('afterbegin', `<section id = "single-mini-game">`)
    //
     // for(var i = 0; i <= 8; i++){
     // miniGameBoard.insertAdjacentHTML('beforeend', `
