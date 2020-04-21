@@ -36,8 +36,12 @@ function addToBoard(event) {
 }
 
 function updateDisplay() {
-  var spot = document.getElementById(event.target.id);
-  spot.innerText = dataModel.whoseTurn;
+  var src = document.getElementById(event.target.id);
+  var img = document.createElement("img");
+  var birdImg = "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
+  var catImg = "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
+  img.src = dataModel.whoseTurn === 1 ? catImg: birdImg;
+  src.appendChild(img);
   dataModel.whoseTurn = dataModel.whoseTurn === 1 ? 2 : 1
 }
 
@@ -53,7 +57,14 @@ function displayMini(){
   } else if (dataModel.winner === 2) {
     var boards = dataModel.playerTwo.wins
   }
-  miniGameBoard.insertAdjacentHTML('beforeend', ` <section id = "single-mini-game">
+  // var src = document.getElementById(event.target.id);
+  // var img = document.createElement("img");
+  // var birdImg = "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
+  // var catImg = "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
+  // img.src = dataModel.whoseTurn === 1 ? catImg: birdImg;
+  // src.appendChild(img);
+
+  miniGameBoard.insertAdjacentHTML('beforeend', ` <div id = "single-mini-game">
     <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
     </article>
     <article class = "mini-spot">${boards[boards.length -1][1] || ' '}
@@ -72,7 +83,7 @@ function displayMini(){
     </article>
     <article class = "mini-spot">${boards[boards.length -1][8] || ' '}
     </article>
-    </section>`)
+    </div>`)
 }
 
 function onLoad() {
@@ -90,7 +101,7 @@ function displayLocalStorage(player) {
   for(var i = 0; i < player.wins.length; i++){
   var miniGameBoard = document.getElementById(`mini-game-board-${player.id}`);
   var boards = player.wins;
-  miniGameBoard.insertAdjacentHTML('beforeend', ` <section id = "single-mini-game">
+  miniGameBoard.insertAdjacentHTML('beforeend', ` <div id = "single-mini-game">
     <article class = "mini-spot">${boards[i][0] || ' '}
     </article>
     <article class = "mini-spot">${boards[i][1] || ' '}
@@ -109,7 +120,7 @@ function displayLocalStorage(player) {
     </article>
     <article class = "mini-spot">${boards[i][8] || ' '}
     </article>
-    </trial>`)
+    </div>`)
   }
 }
 //
