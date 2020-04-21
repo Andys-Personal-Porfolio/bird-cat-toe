@@ -3,27 +3,29 @@ class Game {
   constructor() {
     this.board = [,,,,,,,,,];
   }
-  checkScore() {
-    //check horiztonal wins
-    //is horizontal t/f sets a new value for [i + whatever]
+  checkWins() {
+
+    var player = dataModel.whoseTurn;
+    var space = this.board;
+    //check horizontal wins
     for(var i = 0; i < 8; i+=3){
-      if(this.board[i] === dataModel.whoseTurn &&this.board[i+1] === dataModel.whoseTurn && this.board[i+2] === dataModel.whoseTurn){
-        return dataModel.whoseTurn;
+      if(space[i] === player &&space[i+1] === player && space[i+2] === player){
+        return player;
       }
     }
     //check vertical wins
     for(var i = 0; i < 3; i+=1){
-      if(this.board[i] === dataModel.whoseTurn &&this.board[i+3] === dataModel.whoseTurn && this.board[i+6] === dataModel.whoseTurn){
-        return dataModel.whoseTurn;
+      if(space[i] === player && space[i+3] === player && space[i+6] === player){
+        return player;
       }
     }
     //Check diagonal wins
-    if(this.board[2] === dataModel.whoseTurn && this.board[4] === dataModel.whoseTurn && this.board[6] === dataModel.whoseTurn) {
-      return dataModel.whoseTurn
-    }else if(this.board[0] === dataModel.whoseTurn &&this.board[4] === dataModel.whoseTurn && this.board[8] === dataModel.whoseTurn){
-      return dataModel.whoseTurn
+    if(space[2] === player && space[4] === player && space[6] === player) {
+      return player
+    }else if(space[0] === player &&space[4] === player && space[8] === player){
+      return player
     }
-    if(!this.board.includes(undefined)){
+    if(!space.includes(undefined)){
       return 'draw';
     }
   }
