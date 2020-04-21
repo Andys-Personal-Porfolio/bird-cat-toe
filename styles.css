@@ -15,7 +15,7 @@ section {
 article {
   display: flex;
   grid-gap: 5px;
-  background-color: white;
+  background-color: lightblue;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -32,8 +32,8 @@ h2 {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-gap: 5px;
-  width: 50%;
-  height: 30%;
+  width: 75%;
+  height: 45%;
 }
 .left-side {
   align-items: left;
@@ -72,6 +72,11 @@ h2 {
   width: 100%;
   align-content: center;
   justify-content: center;
-  background-color: white;
+  background-color: lightblue;
+
+}
+img{
+  width: 95%;
+  height: 95%;
 
 }
