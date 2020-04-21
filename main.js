@@ -63,8 +63,10 @@ function displayMini(){
   // var catImg = "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
   // img.src = dataModel.whoseTurn === 1 ? catImg: birdImg;
   // src.appendChild(img);
-
-  miniGameBoard.insertAdjacentHTML('beforeend', ` <div id = "single-mini-game">
+  var singleMiniGame = document.createElement("single-mini-game");
+  singleMiniGame.setAttribute("id", "single-mini-game");
+  miniGameBoard.appendChild(singleMiniGame);
+  singleMiniGame.insertAdjacentHTML('beforeend', `
     <article class = "mini-spot">${boards[boards.length -1][0] || ' '}
     </article>
     <article class = "mini-spot">${boards[boards.length -1][1] || ' '}
@@ -83,7 +85,7 @@ function displayMini(){
     </article>
     <article class = "mini-spot">${boards[boards.length -1][8] || ' '}
     </article>
-    </div>`)
+    `)
 }
 
 function onLoad() {
