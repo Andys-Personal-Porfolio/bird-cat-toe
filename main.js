@@ -7,54 +7,48 @@ var dataModel = {
   playerOne: new Player(1),
   playerTwo: new Player(2)
   }
+
 gameBoard.addEventListener('click',addToBoard);
 window.onLoadHandler();
 
-function addToBoard(event) {
-
-  if(!dataModel.game.board[event.target.id] && !dataModel.winner) {
-    dataModel.game.board[event.target.id] = dataModel.whoseTurn;
-    dataModel.winner = dataModel.game.checkWins();
-    updateDisplay();
-    } else if (dataModel.winner === 1) {
-      dataModel.game.saveWin();
-      dataModel.playerOne.saveWinsToStorage();
-      displayMini();
-      dataModel.game.resetGame();
-    } else if (dataModel.winner === 2){
-      dataModel.game.saveWin();
-      dataModel.playerTwo.saveWinsToStorage();
-      displayMini();
-      dataModel.game.resetGame();
-    } else if(dataModel.winner === 'draw') {
-      dataModel.game.resetGame();
-    }
-    updateHeader();
-
-
+function onLoadHandler() {
+  dataModel.playerOne.retrieveWinsFromStorage();
+  dataModel.playerTwo.retrieveWinsFromStorage();
+  if(dataModel.playerOne.wins){
+    localStorageHelper(dataModel.playerOne);
+  }
+  if(dataModel.playerTwo.wins){
+    localStorageHelper(dataModel.playerTwo)
+  }
 }
 
-function updateDisplay() {
-  var src = document.getElementById(event.target.id);
-  var img = document.createElement("img");
-  img.src = whichPicture(dataModel.whoseTurn, 0)
-  src.appendChild(img);
-  dataModel.whoseTurn = dataModel.whoseTurn === 1 ? 2 : 1
+function localStorageHelper(player) {
+  var miniGameBoard = document.getElementById(`mini-game-board-${player.id}`);
+  for(var i = 0; i < player.wins.length; i++){
+    var boards = player.wins;
+    displayBoard(boards[i], miniGameBoard);
+  }
 }
 
-function updateHeader() {
-    var turnHeader = document.querySelector('.turn-header');
-    var turnSelect = dataModel.whoseTurn === 1 ? `Cat's` : `Bird's`;
-    if ( dataModel.winner === 1){
-      var winnerSelect = 'Cat';
-    } else if ( dataModel.winner === 2){
-      var winnerSelect = 'Bird';
-    } else if ( dataModel.winner === 'draw'){
-      var winnerSelect = 'Nobody';
-    }
-    turnHeader.innerText = dataModel.winner === undefined ? `It is ${turnSelect} turn!` : winnerSelect + ' wins!!';
+function displayBoard(spot,miniGameBoard) {
+  var singleMiniGame = document.createElement("div");
+  singleMiniGame.setAttribute("id", "single-mini-game");
+  miniGameBoard.appendChild(singleMiniGame);
+  for(var i = 0; i < 9; i ++){
+    var img = whichPicture(spot, i);
+    singleMiniGame.insertAdjacentHTML('beforeend', `
+      <article class = "mini-spot"> <img src = ${img}>
+      </article>`);
+  }
+  displayWinCount();
 }
 
+function displayWinCount() {
+  var birdWins = document.getElementById('bird-wins');
+  var catWins = document.getElementById('cat-wins');
+  birdWins.innerText = `Wins: ${dataModel.playerTwo.wins.length}`;
+  catWins.innerText = `Wins: ${dataModel.playerOne.wins.length}`;
+}
 
 function whichPicture(j,i) {
   if(j[i] === 2 || j === 2){
@@ -66,47 +60,47 @@ function whichPicture(j,i) {
   }
 }
 
-function onLoadHandler() {
-  dataModel.playerOne.retrieveWinsFromStorage()
-  dataModel.playerTwo.retrieveWinsFromStorage()
-  if(dataModel.playerOne.wins){
-    displayLocalStorage(dataModel.playerOne);
+function addToBoard(event) {
+  if(!dataModel.game.board[event.target.id] && !dataModel.winner) {
+    dataModel.game.board[event.target.id] = dataModel.whoseTurn;
+    dataModel.winner = dataModel.game.checkWins();
+    putImageOnBoard();
+  } else if(dataModel.winner && dataModel.winner !== 'draw') {
+    miniBoardHelper();
+    dataModel.game.saveWin();
+    dataModel.game.resetGame();
+    dataModel.playerOne.saveWinsToStorage();
+    dataModel.playerTwo.saveWinsToStorage();
+  } else{
+    dataModel.game.resetGame();
   }
-  if(dataModel.playerTwo.wins){
-    displayLocalStorage(dataModel.playerTwo)
-  }
+    updateHeader();
 }
 
-function displayLocalStorage(player) {
-  var miniGameBoard = document.getElementById(`mini-game-board-${player.id}`);
-  for(var i = 0; i < player.wins.length; i++){
-    var boards = player.wins;
-    displayBoth(boards[i], miniGameBoard);
-  }
+function putImageOnBoard() {
+  var src = document.getElementById(event.target.id);
+  var img = document.createElement("img");
+  img.src = whichPicture(dataModel.whoseTurn, 0);
+  src.appendChild(img);
+  dataModel.whoseTurn = dataModel.whoseTurn === 1 ? 2 : 1;
 }
 
-function displayMini(){
+function updateHeader() {
+    var turnHeader = document.querySelector('.turn-header');
+    var turnSelect = dataModel.whoseTurn === 1 ? `Cat's` : `Bird's`;
+    switch (dataModel.winner){
+      case 1: var winnerSelect = 'Cat';
+      case 2: var winnerSelect = 'Bird';
+      case 'draw': var winnerSelect = 'Nobody';
+    }
+    turnHeader.innerText = dataModel.winner === undefined ? `It is ${turnSelect} turn!` : winnerSelect + ' wins!!';
+}
+
+function miniBoardHelper(){
   var miniGameBoard = document.getElementById(`mini-game-board-${dataModel.winner}`)
-  if(dataModel.winner === 1) {
-    var boards = dataModel.playerOne.wins;
-  } else if (dataModel.winner === 2) {
-    var boards = dataModel.playerTwo.wins;
+  switch(dataModel.winner){
+    case 1: var boards = dataModel.playerOne.wins;
+    case 2: var boards = dataModel.playerTwo.wins;
   }
-  displayBoth(boards[boards.length -1],miniGameBoard)
-}
-
-function displayBoth(spot,miniGameBoard) {
-  var singleMiniGame = document.createElement("div");
-  singleMiniGame.setAttribute("id", "single-mini-game");
-  miniGameBoard.appendChild(singleMiniGame);
-  for(var i = 0; i < 9; i ++){
-    var img = whichPicture(spot, i)
-    singleMiniGame.insertAdjacentHTML('beforeend', `
-      <article class = "mini-spot"> <img src = ${img}>
-      </article>`)
-  }
-  var birdWins = document.getElementById('bird-wins');
-  var catWins = document.getElementById('cat-wins');
-  birdWins.innerText = `Wins: ${dataModel.playerTwo.wins.length}`
-  catWins.innerText = `Wins: ${dataModel.playerOne.wins.length}`
+  displayBoard(boards[boards.length -1],miniGameBoard)
 }
