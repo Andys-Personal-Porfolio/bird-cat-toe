@@ -3,7 +3,7 @@
 var gameBoard = document.querySelector('.game-board');
 var dataModel = {
   game: new Game(),
-  whoseTurn: playerOne,
+  whoseTurn: 1,
   winner: null,
   playerOne: new Player(1),
   playerTwo: new Player(2)
@@ -17,12 +17,6 @@ function addToBoard(event) {
     dataModel.game.board[event.target.id] = dataModel.whoseTurn;
     dataModel.winner = dataModel.game.checkWins();
     updateDisplay();
-  // } else if (dataModel.winner) {
-  //   dataModel.game.saveWin();
-  //   if (dataModel.winner === 1) {} dataModel.playerOne.saveWinsToStorage();
-  //   displayMini();
-  //   dataModel.game.resetGame();
-  // }
     } else if (dataModel.winner === 1) {
       dataModel.game.saveWin();
       dataModel.playerOne.saveWinsToStorage();
@@ -51,7 +45,8 @@ function updateDisplay() {
 
 function updateHeader() {
     var turnHeader = document.querySelector('.turn-header');
-    turnHeader.innerText = dataModel.winner ||`It is player ${dataModel.whoseTurn}'s turn`
+    var turnSelect = dataModel.whoseTurn === 1 ? `Cat's` : `Bird's`;
+    turnHeader.innerText = dataModel.winner === undefined ? `It is ${turnSelect} turn!` : 'The winner is player' + dataModel.winner + '!!';
 }
 
 
