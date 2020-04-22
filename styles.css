@@ -1,5 +1,5 @@
 html {
-
+  font: 1.2em "Fira Sans", sans-serif;
 }
 body {
   display: flex;
@@ -24,6 +24,13 @@ article {
 h2 {
   align-self: center;
 }
+img{
+  width: 95%;
+  height: 95%;
+}
+.turnHeader{
+  height: 200px;
+}
 .game-board {
   border: none;
   display: grid;
@@ -35,11 +42,21 @@ h2 {
   width: 75%;
   height: 45%;
 }
-.left-side {
-  align-items: left;
+.scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  height:800px;
+  align-self: center;
 }
+.left-side {
+  align-items: center;
+  text-align: center;
+}
+
 .right-side {
   align-items: left;
+  text-align: center;
 }
 .center {
   align-items: center;
@@ -50,15 +67,13 @@ h2 {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-gap: 20px;
-  padding: 20px;
   width: 80%;
-  justify-content: center;
-  align-self: center;
+  align-items: center;
 
 }
 #single-mini-game{
   display: grid;
-  grid-gap: 5px;
+  grid-gap: 2px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   width: 100px;
@@ -73,10 +88,5 @@ h2 {
   align-content: center;
   justify-content: center;
   background-color: lightblue;
-
-}
-img{
-  width: 95%;
-  height: 95%;
 
 }
