@@ -1,5 +1,9 @@
 html {
-  font: 1.2em "Fira Sans", sans-serif;
+  font: 1.2em"futura", sans-serif;
+}
+h1{
+  font-size: 60px;
+  margin: none;
 }
 body {
   display: flex;
@@ -10,7 +14,7 @@ section {
   background-color: lightblue;
   flex-direction: column;
   flex-wrap: wrap;
-   width: 33%;
+  width: 33%;
 }
 article {
   display: flex;
@@ -41,12 +45,14 @@ img{
   grid-gap: 5px;
   width: 95%;
   height: 45%;
+  cursor: pointer;
 }
 .scroll {
   overflow-x: hidden;
   overflow-y: auto;
   text-align: center;
-  height:800px;
+  height: 400px;
+  width: 400px;
   align-self: center;
 }
 .left-side {
@@ -59,7 +65,7 @@ img{
   text-align: center;
 
 }
-.bird {
+.bird-cat {
   height: 30%;
   width: auto;
   align-self: center;
