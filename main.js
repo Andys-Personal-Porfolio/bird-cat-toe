@@ -87,9 +87,9 @@ function displayLocalStorage(player) {
 function displayMini(){
   var miniGameBoard = document.getElementById(`mini-game-board-${dataModel.winner}`)
   if(dataModel.winner === 1) {
-    var boards = dataModel.playerOne.wins
+    var boards = dataModel.playerOne.wins;
   } else if (dataModel.winner === 2) {
-    var boards = dataModel.playerTwo.wins
+    var boards = dataModel.playerTwo.wins;
   }
   displayBoth(boards[boards.length -1],miniGameBoard)
 }
