@@ -30,9 +30,9 @@ class Game {
   }
   saveWin() {
     if (dataModel.winner === 1){
-      dataModel.playerOne.wins.push(this.board)
-    } else if(dataModel.winner ===2){
-      dataModel.playerTwo.wins.push(this.board)
+      dataModel.playerOne.wins.push(this.board);
+    } else if(dataModel.winner === 2){
+      dataModel.playerTwo.wins.push(this.board);
     }
   }
   resetGame() {
