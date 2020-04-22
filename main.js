@@ -1,5 +1,4 @@
 
-// var lsDataModel = retrieveWinsFromStorage() || new Player();
 var gameBoard = document.querySelector('.game-board');
 var dataModel = {
   game: new Game(),
@@ -9,7 +8,7 @@ var dataModel = {
   playerTwo: new Player(2)
   }
 gameBoard.addEventListener('click',addToBoard);
-window.onLoad(onLoad);
+window.onLoadHandler();
 
 function addToBoard(event) {
 
@@ -46,7 +45,14 @@ function updateDisplay() {
 function updateHeader() {
     var turnHeader = document.querySelector('.turn-header');
     var turnSelect = dataModel.whoseTurn === 1 ? `Cat's` : `Bird's`;
-    turnHeader.innerText = dataModel.winner === undefined ? `It is ${turnSelect} turn!` : 'The winner is player' + dataModel.winner + '!!';
+    if ( dataModel.winner === 1){
+      var winnerSelect = 'Cat';
+    } else if ( dataModel.winner === 2){
+      var winnerSelect = 'Bird';
+    } else if ( dataModel.winner === 'draw'){
+      var winnerSelect = 'Nobody';
+    }
+    turnHeader.innerText = dataModel.winner === undefined ? `It is ${turnSelect} turn!` : winnerSelect + ' wins!!';
 }
 
 
@@ -60,7 +66,7 @@ function whichPicture(j,i) {
   }
 }
 
-function onLoad() {
+function onLoadHandler() {
   dataModel.playerOne.retrieveWinsFromStorage()
   dataModel.playerTwo.retrieveWinsFromStorage()
   if(dataModel.playerOne.wins){
@@ -99,4 +105,8 @@ function displayBoth(spot,miniGameBoard) {
       <article class = "mini-spot"> <img src = ${img}>
       </article>`)
   }
+  var birdWins = document.getElementById('bird-wins');
+  var catWins = document.getElementById('cat-wins');
+  birdWins.innerText = `Wins: ${dataModel.playerTwo.wins.length}`
+  catWins.innerText = `Wins: ${dataModel.playerOne.wins.length}`
 }
