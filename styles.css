@@ -26,7 +26,7 @@ h2 {
 }
 img{
   width: 95%;
-  height: 95%;
+  height: auto;
 }
 .turnHeader{
   height: 200px;
@@ -39,7 +39,7 @@ img{
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-gap: 5px;
-  width: 75%;
+  width: 95%;
   height: 45%;
 }
 .scroll {
@@ -50,13 +50,19 @@ img{
   align-self: center;
 }
 .left-side {
-  align-items: center;
+  display: flex;
   text-align: center;
 }
 
 .right-side {
-  align-items: left;
+  display: flex;
   text-align: center;
+
+}
+.bird {
+  height: 30%;
+  width: auto;
+  align-self: center;
 }
 .center {
   align-items: center;
