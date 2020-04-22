@@ -4,28 +4,27 @@ class Game {
     this.board = [,,,,,,,,,];
   }
   checkWins() {
-
     var player = dataModel.whoseTurn;
-    var space = this.board;
+    var spaces = this.board;
     //check horizontal wins
     for(var i = 0; i < 8; i+=3){
-      if(space[i] === player &&space[i+1] === player && space[i+2] === player){
+      if(spaces[i] === player &&spaces[i+1] === player && spaces[i+2] === player){
         return player;
       }
     }
     //check vertical wins
     for(var i = 0; i < 3; i+=1){
-      if(space[i] === player && space[i+3] === player && space[i+6] === player){
+      if(spaces[i] === player && spaces[i+3] === player && spaces[i+6] === player){
         return player;
       }
     }
     //Check diagonal wins
-    if(space[2] === player && space[4] === player && space[6] === player) {
+    if(spaces[2] === player && spaces[4] === player && spaces[6] === player) {
       return player
-    }else if(space[0] === player &&space[4] === player && space[8] === player){
+    }else if(spaces[0] === player &&spaces[4] === player && spaces[8] === player){
       return player
     }
-    if(!space.includes(undefined)){
+    if(!spaces.includes(undefined)){
       return 'draw';
     }
   }
