@@ -1,5 +1,3 @@
-
-var gameBoard = document.querySelector('.game-board');
 var dataModel = {
   game: new Game(),
   whoseTurn: 1,
@@ -7,7 +5,7 @@ var dataModel = {
   playerOne: new Player(1),
   playerTwo: new Player(2)
   }
-
+var gameBoard = document.querySelector('.game-board');
 gameBoard.addEventListener('click',addToBoard);
 window.onLoadHandler();
 
@@ -51,14 +49,16 @@ function displayWinCount() {
 }
 
 function whichPicture(j,i) {
-  if(j[i] === 2 || j === 2){
-    return "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
-  } else if (j[i] === 1 || j ===1){
-    return "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
-  } else {
-    return "https://www.halberesford.com/content/images/2018/07/null.png";
+  switch (j[i] || j){
+    case 1: return "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
+    break;
+    case 2: return "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
+    break;
+    default: return "https://www.halberesford.com/content/images/2018/07/null.png";
+    break;
   }
 }
+
 
 function addToBoard(event) {
   if(!dataModel.game.board[event.target.id] && !dataModel.winner) {
@@ -86,21 +86,26 @@ function putImageOnBoard() {
 }
 
 function updateHeader() {
-    var turnHeader = document.querySelector('.turn-header');
-    var turnSelect = dataModel.whoseTurn === 1 ? `Cat's` : `Bird's`;
-    switch (dataModel.winner){
-      case 1: var winnerSelect = 'Cat';
-      case 2: var winnerSelect = 'Bird';
-      case 'draw': var winnerSelect = 'Nobody';
-    }
-    turnHeader.innerText = dataModel.winner === undefined ? `It is ${turnSelect} turn!` : winnerSelect + ' wins!!';
+  var turnHeader = document.querySelector('.turn-header');
+  var turnSelect = dataModel.whoseTurn === 1 ? `Cat's` : `Bird's`;
+  switch (dataModel.winner){
+    case 1: var winnerSelect = 'Cat';
+    break;
+    case 2: var winnerSelect = 'Bird';
+    break;
+    case 'draw': var winnerSelect = 'Nobody';
+    break;
+  }
+  turnHeader.innerText = dataModel.winner === undefined ? `It is ${turnSelect} turn!` : winnerSelect + ' wins!!';
 }
 
 function miniBoardHelper(){
   var miniGameBoard = document.getElementById(`mini-game-board-${dataModel.winner}`)
   switch(dataModel.winner){
     case 1: var boards = dataModel.playerOne.wins;
+    break;
     case 2: var boards = dataModel.playerTwo.wins;
+    break;
   }
-  displayBoard(boards[boards.length -1],miniGameBoard)
+  displayBoard(boards[boards.length -1],miniGameBoard);
 }
