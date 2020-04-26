@@ -56,10 +56,11 @@ function updateHeader() {
 }
 
 
-function whichPicture(j,i) {
-  if(j[i] === 2 || j === 2){
+function whichPicture(j) {
+  
+  if( j === 2){
     return "https://www.pngkit.com/png/full/796-7961192_european-robin-transparent-background-transparent-background-robin-bird.png";
-  } else if (j[i] === 1 || j ===1){
+  } else if (j ===1){
     return "https://secureservercdn.net/166.62.111.84/on3.653.myftpupload.com/wp-content/uploads/2019/02/home-header-08.png?time=1587225613";
   } else {
     return "https://www.halberesford.com/content/images/2018/07/null.png";
@@ -87,6 +88,7 @@ function displayLocalStorage(player) {
 
 function displayMini(){
   var miniGameBoard = document.getElementById(`mini-game-board-${dataModel.winner}`)
+
   if(dataModel.winner === 1) {
     var boards = dataModel.playerOne.wins;
   } else if (dataModel.winner === 2) {
@@ -100,7 +102,7 @@ function displayBoth(spot,miniGameBoard) {
   singleMiniGame.setAttribute("id", "single-mini-game");
   miniGameBoard.appendChild(singleMiniGame);
   for(var i = 0; i < 9; i ++){
-    var img = whichPicture(spot, i)
+    var img = whichPicture(spot[i])
     singleMiniGame.insertAdjacentHTML('beforeend', `
       <article class = "mini-spot"> <img src = ${img}>
       </article>`);
