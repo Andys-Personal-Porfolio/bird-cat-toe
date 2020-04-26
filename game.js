@@ -36,7 +36,7 @@ class Game {
     }
   }
   resetGame() {
-    dataModel.whoseTurn = 1;
+    dataModel.whoseTurn = dataModel.winner === 1 ? 2 : 1;
     this.board = [,,,,,,,,,];
     dataModel.winner = undefined;
     for(var i = 0; i <= 8; i++){
